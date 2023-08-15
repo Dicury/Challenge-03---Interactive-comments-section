@@ -1,13 +1,13 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Rubik } from "next/font/google";
 import StyledComponentsRegistry from "./registry";
 
-const inter = Inter({ subsets: ["latin"] });
+const rubik = Rubik({ weight: ["400", "500", "700"], subsets: ["latin"] });
 
 export default function RootLayout({ children }) {
   return (
     <html lang="pt-BR">
-      <body className={inter.className}>
+      <body className={rubik.className}>
         <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
       </body>
     </html>
