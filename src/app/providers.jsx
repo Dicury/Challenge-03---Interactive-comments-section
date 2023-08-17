@@ -23,7 +23,8 @@ input {
 }
 
 p {
-  color: ${(props) => props.theme.colors.neutral.grayishBlue}
+  color: ${(props) => props.theme.colors.neutral.grayishBlue};
+  line-height: 1.5rem;
 }
 
 `;

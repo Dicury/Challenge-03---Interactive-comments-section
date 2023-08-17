@@ -13,6 +13,13 @@ export const Card = styled.div`
   padding: 1rem;
   background-color: ${(props) => props.theme.colors.neutral.white};
   border-radius: 10px;
+
+  @media (min-width: 769px) {
+    grid-template-columns: 0.1fr 2fr 0.5fr;
+
+    margin: 10vh 10vh 10vh 10vw;
+    padding: 2rem;
+  }
 `;
 
 export const CabecalhoContainer = styled.div`
@@ -22,6 +29,10 @@ export const CabecalhoContainer = styled.div`
 
   grid-row: 1/2;
   grid-column: 1/4;
+
+  @media (min-width: 769px) {
+    grid-column: 2/3;
+  }
 `;
 
 export const CabecalhoImagem = styled.img`
@@ -45,6 +56,15 @@ export const ContadorContainer = styled.div`
   height: 2.5rem;
   padding: 0.5rem;
   background-color: ${(props) => props.theme.colors.neutral.veryLightGray};
+
+  @media (min-width: 769px) {
+    flex-direction: column;
+    grid-column: 1/2;
+    grid-row: 1/4;
+
+    height: auto;
+    gap: 1.5rem;
+  }
 `;
 
 export const BotaoContador = styled.button`
@@ -67,6 +87,10 @@ export const ReplyContainer = styled.div`
   justify-content: right;
   align-items: center;
   gap: 0.5rem;
+
+  @media (min-width: 769px) {
+    grid-row: 1/2;
+  }
 `;
 
 export const ReplyIcone = styled.img`
@@ -85,4 +109,9 @@ export const Reply = styled.button`
 export const TextoComentario = styled.p`
   grid-row: 2/3;
   grid-column: 1/4;
+
+  @media (min-width: 769px) {
+    grid-row: 2/4;
+    grid-column: 2/4;
+  }
 `;
