@@ -15,9 +15,9 @@ export const Card = styled.div`
   border-radius: 10px;
 
   @media (min-width: 769px) {
-    grid-template-columns: 0.1fr 2fr 0.5fr;
+    grid-template-columns: auto 1fr auto;
 
-    margin: 10vh 10vh 10vh 10vw;
+    margin: 10vh 5vh 1.5rem 10vw;
     padding: 2rem;
   }
 `;
@@ -64,6 +64,7 @@ export const ContadorContainer = styled.div`
 
     height: auto;
     gap: 1.5rem;
+    padding: 1rem;
   }
 `;
 
