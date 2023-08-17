@@ -18,7 +18,8 @@ body {
 }
 
 button, 
-input {
+input,
+textarea {
     font-family: inherit;
 }
 
