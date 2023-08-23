@@ -16,8 +16,6 @@ export const Card = styled.div`
 
   @media (min-width: 769px) {
     grid-template-columns: auto 1fr auto;
-
-    margin: 0 5vh 10vh 10vw;
     padding: 2rem;
   }
 `;

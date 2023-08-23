@@ -1,47 +1,52 @@
 "use client";
 
 import React from "react";
+import Contador from "@/components/Comment/Contador/index";
+import Replies from "@/components/Comment/Replies/index";
+import CommentButtons from "@/components/Comment/CommentButtons/index";
 
 import {
   Card,
-  ContadorContainer,
-  BotaoContador,
-  Contador,
-  ReplyContainer,
-  ReplyIcone,
-  Reply,
+  ReplyingTo,
   CabecalhoContainer,
   CabecalhoImagem,
   CabecalhoNome,
   TextoComentario,
+  TagCurrentUser,
 } from "@/components/Comment/Comment.style";
 
-export default function Comment() {
+export default function Comment({
+  content,
+  createdAt,
+  id,
+  currentUser,
+  image,
+  username,
+  score,
+  replies,
+  replyingTo,
+}) {
   return (
-    <Card>
-      <ContadorContainer>
-        <BotaoContador>
-          <img src="images/icon-plus.svg" alt="" />
-        </BotaoContador>
-        <Contador>12</Contador>
-        <BotaoContador>
-          <img src="images/icon-minus.svg" alt="" />
-        </BotaoContador>
-      </ContadorContainer>
-      <ReplyContainer>
-        <ReplyIcone src="images/icon-reply.svg" alt="" />
-        <Reply>Reply</Reply>
-      </ReplyContainer>
-      <CabecalhoContainer>
-        <CabecalhoImagem src="images/avatars/image-amyrobson.png" alt="/" />
-        <CabecalhoNome>amyrobson</CabecalhoNome>
-        <p>1 month ago</p>
-      </CabecalhoContainer>
-      <TextoComentario>
-        Impressive! Though it seems the drag feature could be improved. But
-        overall it looks incredible. You've nailed the design and the
-        responsiveness at various breakpoints works really well.
-      </TextoComentario>
-    </Card>
+    <>
+      <Card>
+        <Contador score={score} />
+        <CommentButtons
+          currentUser={currentUser}
+          username={username}
+          key={currentUser}
+        />
+        <CabecalhoContainer>
+          <CabecalhoImagem src={image} />
+          <CabecalhoNome>{username}</CabecalhoNome>
+          {currentUser === username ? <TagCurrentUser>you</TagCurrentUser> : ""}
+          <p>{createdAt}</p>
+        </CabecalhoContainer>
+        <TextoComentario>
+          {replyingTo ? <ReplyingTo>@{replyingTo} </ReplyingTo> : ""}
+          {content}
+        </TextoComentario>
+      </Card>
+      <Replies replies={replies} key={replies} currentUser={currentUser} />
+    </>
   );
 }

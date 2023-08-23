@@ -16,8 +16,6 @@ export const Card = styled.div`
 
   @media (min-width: 769px) {
     grid-template-columns: auto 1fr auto;
-
-    margin: 10vh 5vh 1.5rem 10vw;
     padding: 2rem;
   }
 `;
@@ -44,67 +42,9 @@ export const CabecalhoNome = styled.h3`
   font-weight: 500;
 `;
 
-export const ContadorContainer = styled.div`
-  display: flex;
-  grid-row: 3/4;
-  grid-column: 1/2;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 15px;
-  gap: 1rem;
-  height: 2.5rem;
-  padding: 0.5rem;
-  background-color: ${(props) => props.theme.colors.neutral.veryLightGray};
-
-  @media (min-width: 769px) {
-    flex-direction: column;
-    grid-column: 1/2;
-    grid-row: 1/4;
-
-    height: auto;
-    gap: 1.5rem;
-    padding: 1rem;
-  }
-`;
-
-export const BotaoContador = styled.button`
-  display: flex;
-  justify-content: center;
-  background: none;
-  border: none;
-`;
-
-export const Contador = styled.p`
+export const ReplyingTo = styled.span`
   color: ${(props) => props.theme.colors.primary.moderateBlue};
   font-weight: 500;
-`;
-
-export const ReplyContainer = styled.div`
-  display: flex;
-  grid-row: 3/4;
-  grid-column: 3/4;
-
-  justify-content: right;
-  align-items: center;
-  gap: 0.5rem;
-
-  @media (min-width: 769px) {
-    grid-row: 1/2;
-  }
-`;
-
-export const ReplyIcone = styled.img`
-  width: 0.8rem;
-  height: 0.8rem;
-`;
-
-export const Reply = styled.button`
-  border: none;
-  background: none;
-  color: ${(props) => props.theme.colors.primary.moderateBlue};
-  font-weight: 500;
-  font-size: 16px;
 `;
 
 export const TextoComentario = styled.p`
@@ -115,4 +55,11 @@ export const TextoComentario = styled.p`
     grid-row: 2/4;
     grid-column: 2/4;
   }
+`;
+
+export const TagCurrentUser = styled.p`
+  color: ${(props) => props.theme.colors.neutral.white};
+  background-color: ${(props) => props.theme.colors.primary.moderateBlue};
+  padding: 2px 10px;
+  border-radius: 5px;
 `;
