@@ -1,18 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Comment from "@/components/Comment";
 import Chat from "../Chat";
 import Dados from "@/data/data.json";
 
 export default function CommentsSection() {
-  const [comentarios, setComentarios] = useState([]);
-  const [usuarioAtual, setUsuarioAtual] = useState();
-
-  useEffect(() => {
-    setComentarios(Dados.comments);
-    setUsuarioAtual(Dados.currentUser.username);
-  }, []);
+  const [comentarios, setComentarios] = useState(Dados.comments);
 
   return (
     <>
@@ -25,7 +19,6 @@ export default function CommentsSection() {
           score={e.score}
           replies={e.replies}
           id={e.id}
-          currentUser={usuarioAtual}
           key={e.id}
         />
       ))}

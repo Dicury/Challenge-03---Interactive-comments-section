@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import { React, useContext } from "react";
+import { CurrentUserContext } from "@/context/CurrentUserContext";
 import Contador from "@/components/Comment/Contador/index";
 import Replies from "@/components/Comment/Replies/index";
 import CommentButtons from "@/components/Comment/CommentButtons/index";
@@ -19,13 +20,13 @@ export default function Comment({
   content,
   createdAt,
   id,
-  currentUser,
   image,
   username,
   score,
   replies,
   replyingTo,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   return (
     <>
       <Card>

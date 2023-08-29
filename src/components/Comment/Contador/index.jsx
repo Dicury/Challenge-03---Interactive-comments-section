@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ContadorContainer,
   BotaoContador,
@@ -6,13 +6,14 @@ import {
 } from "@/components/Comment/Contador/Contador.style";
 
 export default function Contador({ score }) {
+  let [pontuacao, setPontuacao] = useState(score);
   return (
     <ContadorContainer>
-      <BotaoContador>
+      <BotaoContador onClick={() => setPontuacao(pontuacao + 1)}>
         <img src="images/icon-plus.svg" alt="" />
       </BotaoContador>
-      <ScoreContador>{score}</ScoreContador>
-      <BotaoContador>
+      <ScoreContador>{pontuacao}</ScoreContador>
+      <BotaoContador onClick={() => setPontuacao(pontuacao - 1)}>
         <img src="images/icon-minus.svg" alt="" />
       </BotaoContador>
     </ContadorContainer>
