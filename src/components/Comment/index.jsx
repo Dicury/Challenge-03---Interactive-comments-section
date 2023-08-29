@@ -1,7 +1,6 @@
 "use client";
 
-import { React, useContext } from "react";
-import { CurrentUserContext } from "@/context/CurrentUserContext";
+import React from "react";
 import Contador from "@/components/Comment/Contador/index";
 import Replies from "@/components/Comment/Replies/index";
 import CommentButtons from "@/components/Comment/CommentButtons/index";
@@ -15,6 +14,7 @@ import {
   TextoComentario,
   TagCurrentUser,
 } from "@/components/Comment/Comment.style";
+import useDadosContext from "@/hooks/useDadosContext";
 
 export default function Comment({
   content,
@@ -26,11 +26,11 @@ export default function Comment({
   replies,
   replyingTo,
 }) {
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useDadosContext();
   return (
     <>
       <Card>
-        <Contador score={score} />
+        <Contador score={score} id={id} />
         <CommentButtons
           currentUser={currentUser}
           username={username}

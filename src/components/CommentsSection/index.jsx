@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Comment from "@/components/Comment";
 import Chat from "../Chat";
-import Dados from "@/data/data.json";
+import useDadosContext from "@/hooks/useDadosContext";
 
 export default function CommentsSection() {
-  const [comentarios, setComentarios] = useState(Dados.comments);
+  const { comentarios } = useDadosContext();
 
   return (
     <>
