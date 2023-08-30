@@ -13,7 +13,7 @@ export default function Contador({ id, score, idPai }) {
   let [pontuacao, setPontuacao] = useState(score);
 
   function HandleOnClick(expressao) {
-    if (idPai === "") {
+    if (idPai === "pai") {
       atualizaScoreComment(id, expressao);
       setPontuacao(comentarios[id].score);
     } else {

@@ -13,7 +13,7 @@ export default function CommentsSection() {
     <>
       {comentarios
         // ajustar organição, está roubando o score do amiguinho.
-        .sort((a, b) => (a.score - b.score ? 1 : -1))
+        .sort((a, b) => (a.score < b.score ? 1 : -1))
         .map((e) => (
           <Comment
             content={e.content}
@@ -22,7 +22,7 @@ export default function CommentsSection() {
             image={e.user.image.png}
             score={e.score}
             replies={e.replies}
-            idPai={[]}
+            idPai="pai"
             id={e.id}
             key={e.id}
           />
