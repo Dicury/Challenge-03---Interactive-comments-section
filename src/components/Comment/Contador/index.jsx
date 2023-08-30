@@ -10,24 +10,21 @@ import useDadosContext from "@/hooks/useDadosContext";
 export default function Contador({ id, score, idPai }) {
   const { atualizaScoreComment, atualizaScoreReply, comentarios } =
     useDadosContext();
-  let [pontuacao, setPontuacao] = useState(score);
 
-  function HandleOnClick(expressao) {
+  function handleOnClick(expressao) {
     if (idPai === "pai") {
       atualizaScoreComment(id, expressao);
-      setPontuacao(comentarios[id].score);
     } else {
       atualizaScoreReply(id, expressao, idPai);
-      setPontuacao(comentarios[idPai].replies[id].score);
     }
   }
   return (
     <ContadorContainer>
-      <BotaoContador onClick={() => HandleOnClick("adicionar")}>
+      <BotaoContador onClick={() => handleOnClick("adicionar")}>
         <Image src="images/icon-plus.svg" width={10} height={10} alt="" />
       </BotaoContador>
-      <ScoreContador>{pontuacao}</ScoreContador>
-      <BotaoContador onClick={() => HandleOnClick("subtrair")}>
+      <ScoreContador>{score}</ScoreContador>
+      <BotaoContador onClick={() => handleOnClick("subtrair")}>
         <Image src="images/icon-minus.svg" width={10} height={3} alt="" />
       </BotaoContador>
     </ContadorContainer>
