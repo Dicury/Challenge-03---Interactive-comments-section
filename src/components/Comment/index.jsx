@@ -25,12 +25,13 @@ export default function Comment({
   score,
   replies,
   replyingTo,
+  idPai,
 }) {
   const { currentUser } = useDadosContext();
   return (
     <>
       <Card>
-        <Contador score={score} id={id} />
+        <Contador score={score} id={id} idPai={idPai} />
         <CommentButtons
           currentUser={currentUser}
           username={username}
@@ -47,7 +48,12 @@ export default function Comment({
           {content}
         </TextoComentario>
       </Card>
-      <Replies replies={replies} key={replies} currentUser={currentUser} />
+      <Replies
+        replies={replies}
+        key={replies}
+        idPai={id}
+        currentUser={currentUser}
+      />
     </>
   );
 }

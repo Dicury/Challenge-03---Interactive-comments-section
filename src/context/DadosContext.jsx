@@ -10,7 +10,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(Dados.currentUser.username);
   const [comentarios, setComentarios] = useState(Dados.comments);
 
-  const atualizaScore = (idPassado, expressao) => {
+  const atualizaScoreComment = (idPassado, expressao) => {
     if (expressao === "adicionar") {
       comentarios[idPassado].score = comentarios[idPassado].score + 1;
     }
@@ -18,8 +18,18 @@ export const CurrentUserProvider = ({ children }) => {
     if (expressao === "subtrair") {
       comentarios[idPassado].score = comentarios[idPassado].score - 1;
     }
-    console.log(comentarios[idPassado].score);
-    return comentarios[idPassado].score;
+  };
+
+  const atualizaScoreReply = (idPassado, expressao, idPai) => {
+    if (expressao === "adicionar") {
+      comentarios[idPai].replies[idPassado].score =
+        comentarios[idPai].replies[idPassado].score + 1;
+    }
+
+    if (expressao === "subtrair") {
+      comentarios[idPai].replies[idPassado].score =
+        comentarios[idPai].replies[idPassado].score - 1;
+    }
   };
 
   return (
@@ -27,7 +37,8 @@ export const CurrentUserProvider = ({ children }) => {
       value={{
         currentUser,
         comentarios,
-        atualizaScore,
+        atualizaScoreComment,
+        atualizaScoreReply,
       }}
     >
       {children}

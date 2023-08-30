@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Image from "next/image";
 import {
   ContadorContainer,
@@ -7,13 +7,19 @@ import {
 } from "@/components/Comment/Contador/Contador.style";
 import useDadosContext from "@/hooks/useDadosContext";
 
-export default function Contador({ id }) {
-  const { atualizaScore, comentarios } = useDadosContext();
-  let [pontuacao, setPontuacao] = useState(comentarios[id].score);
+export default function Contador({ id, score, idPai }) {
+  const { atualizaScoreComment, atualizaScoreReply, comentarios } =
+    useDadosContext();
+  let [pontuacao, setPontuacao] = useState(score);
 
   function HandleOnClick(expressao) {
-    atualizaScore(id, expressao);
-    setPontuacao(comentarios[id].score);
+    if (idPai === "") {
+      atualizaScoreComment(id, expressao);
+      setPontuacao(comentarios[id].score);
+    } else {
+      atualizaScoreReply(id, expressao, idPai);
+      setPontuacao(comentarios[idPai].replies[id].score);
+    }
   }
   return (
     <ContadorContainer>

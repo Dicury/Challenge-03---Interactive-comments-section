@@ -5,7 +5,7 @@ import Comment from "@/components/Comment/index";
 
 import { RepliesCard } from "@/components/Comment/Replies/Replies.style";
 
-export default function Replies({ replies, currentUser }) {
+export default function Replies({ replies, currentUser, idPai }) {
   return (
     <>
       {replies.length > 0 && (
@@ -22,6 +22,7 @@ export default function Replies({ replies, currentUser }) {
               createdAt={reply.createdAt}
               currentUser={currentUser}
               id={reply.id}
+              idPai={idPai}
             />
           ))}
         </RepliesCard>
