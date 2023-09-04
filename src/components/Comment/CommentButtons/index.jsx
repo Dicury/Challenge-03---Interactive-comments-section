@@ -9,21 +9,25 @@ import {
   Reply,
   Delete,
 } from "@/components/Comment/CommentButtons/CommentButtons.style";
+import CommentModal from "../CommentModal";
 
 export default function CommentButtons({ currentUser, username }) {
   return (
     <>
       {currentUser === username ? (
-        <Container>
-          <ContainerButton>
-            <ReplyIcone src="images/icon-delete.svg" alt="" />
-            <Delete>Delete</Delete>
-          </ContainerButton>
-          <ContainerButton>
-            <ReplyIcone src="images/icon-edit.svg" alt="" />
-            <Reply>Edit</Reply>
-          </ContainerButton>
-        </Container>
+        <>
+          <Container>
+            <ContainerButton>
+              <ReplyIcone src="images/icon-delete.svg" alt="" />
+              <Delete>Delete</Delete>
+            </ContainerButton>
+            <ContainerButton>
+              <ReplyIcone src="images/icon-edit.svg" alt="" />
+              <Reply>Edit</Reply>
+            </ContainerButton>
+          </Container>
+          <CommentModal />
+        </>
       ) : (
         <ContainerButton>
           <ReplyIcone src="images/icon-reply.svg" alt="" />
