@@ -1,6 +1,6 @@
 "use-client";
 
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Container,
@@ -11,7 +11,9 @@ import {
 } from "@/components/Comment/CommentButtons/CommentButtons.style";
 import CommentModal from "../CommentModal";
 
-export default function CommentButtons({ currentUser, username }) {
+export default function CommentButtons({ currentUser, username, id, idPai }) {
+  const [openModal, setOpenModal] = useState(false);
+
   return (
     <>
       {currentUser === username ? (
@@ -19,14 +21,20 @@ export default function CommentButtons({ currentUser, username }) {
           <Container>
             <ContainerButton>
               <ReplyIcone src="images/icon-delete.svg" alt="" />
-              <Delete>Delete</Delete>
+              <Delete onClick={() => setOpenModal(true)}>Delete</Delete>
             </ContainerButton>
             <ContainerButton>
               <ReplyIcone src="images/icon-edit.svg" alt="" />
               <Reply>Edit</Reply>
             </ContainerButton>
           </Container>
-          <CommentModal />
+          <CommentModal
+            isOpen={openModal}
+            setModalOpen={() => setOpenModal(!openModal)}
+            key={id}
+            id={id}
+            idPai={idPai}
+          />
         </>
       ) : (
         <ContainerButton>

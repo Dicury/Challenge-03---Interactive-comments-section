@@ -3,6 +3,7 @@
 import { React, createContext, useState } from "react";
 import Dados from "@/data/data.json";
 import transformScoreArray from "@/shared/transformScoreArray";
+import filterArray from "@/shared/filterArray";
 
 export const DadosContext = createContext();
 DadosContext.displayName = "Dados";
@@ -31,6 +32,21 @@ export const CurrentUserProvider = ({ children }) => {
     setComentarios(newArray);
   };
 
+  const deletaComentario = (idPassado) => {
+    const newArray = filterArray(comentarios, idPassado);
+    setComentarios(newArray);
+  };
+
+  const deletaReply = (idPassado, idPai) => {
+    const newArray = comentarios?.filter((comentario) => {
+      if (comentario.id === idPai) {
+        const FilteredReplyArray = filterArray(comentario.replies, idPassado);
+        comentario.replies = FilteredReplyArray;
+      }
+      return comentario;
+    });
+    setComentarios(newArray);
+  };
   return (
     <DadosContext.Provider
       value={{
@@ -38,6 +54,8 @@ export const CurrentUserProvider = ({ children }) => {
         comentarios,
         atualizaScoreComment,
         atualizaScoreReply,
+        deletaComentario,
+        deletaReply,
       }}
     >
       {children}

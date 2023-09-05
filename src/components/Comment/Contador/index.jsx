@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 import {
   ContadorContainer,
@@ -8,8 +8,7 @@ import {
 import useDadosContext from "@/hooks/useDadosContext";
 
 export default function Contador({ id, score, idPai }) {
-  const { atualizaScoreComment, atualizaScoreReply, comentarios } =
-    useDadosContext();
+  const { atualizaScoreComment, atualizaScoreReply } = useDadosContext();
 
   function handleOnClick(expressao) {
     if (idPai === "pai") {

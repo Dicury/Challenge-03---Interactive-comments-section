@@ -35,6 +35,8 @@ export default function Comment({
         <CommentButtons
           currentUser={currentUser}
           username={username}
+          id={id}
+          idPai={idPai}
           key={currentUser}
         />
         <CabecalhoContainer>

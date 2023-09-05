@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import useDadosContext from "@/hooks/useDadosContext";
 
 import {
   FundoModal,
@@ -11,18 +12,32 @@ import {
   TextoModal,
 } from "@/components/Comment/CommentModal/CommentModal.style";
 
-export default function CommentModal({ isOpen, setModalOpen, children }) {
-  return (
-    <FundoModal>
-      <CardModal>
-        <TituloModal>Delete Comment</TituloModal>
-        <TextoModal>
-          Are you sure you want to delete this comment? This will remove the
-          comment and can't be undone.
-        </TextoModal>
-        <CancelButton>NO, CANCEL</CancelButton>
-        <DeleteButton>YES, DELETE</DeleteButton>
-      </CardModal>
-    </FundoModal>
-  );
+export default function CommentModal({ isOpen, setModalOpen, id, idPai }) {
+  const { deletaComentario, deletaReply } = useDadosContext();
+  const handleDelete = () => {
+    if (idPai === "pai") {
+      deletaComentario(id);
+    } else {
+      deletaReply(id, idPai);
+    }
+  };
+  if (isOpen) {
+    return (
+      <FundoModal>
+        <CardModal>
+          <TituloModal>Delete Comment</TituloModal>
+          <TextoModal>
+            Are you sure you want to delete this comment? This will remove the
+            comment and can't be undone.
+          </TextoModal>
+          <CancelButton onClick={setModalOpen}>NO, CANCEL</CancelButton>
+          <DeleteButton onClick={() => handleDelete()}>
+            YES, DELETE
+          </DeleteButton>
+        </CardModal>
+      </FundoModal>
+    );
+  }
+
+  return null;
 }
