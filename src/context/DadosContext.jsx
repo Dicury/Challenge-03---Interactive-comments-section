@@ -11,7 +11,9 @@ DadosContext.displayName = "Dados";
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(Dados.currentUser.username);
   const [comentarios, setComentarios] = useState(Dados.comments);
+  const [editState, setEditState] = useState(false);
 
+  // Funções de atualizar o score
   const atualizaScoreComment = (idPassado, expressao) => {
     const newArray = transformScoreArray(expressao, comentarios, idPassado);
     setComentarios(newArray);
@@ -31,7 +33,9 @@ export const CurrentUserProvider = ({ children }) => {
     });
     setComentarios(newArray);
   };
+  //
 
+  // Funções de deletar comentários/replies
   const deletaComentario = (idPassado) => {
     const newArray = filterArray(comentarios, idPassado);
     setComentarios(newArray);
@@ -47,6 +51,8 @@ export const CurrentUserProvider = ({ children }) => {
     });
     setComentarios(newArray);
   };
+  //
+
   return (
     <DadosContext.Provider
       value={{
@@ -56,6 +62,8 @@ export const CurrentUserProvider = ({ children }) => {
         atualizaScoreReply,
         deletaComentario,
         deletaReply,
+        setEditState,
+        editState,
       }}
     >
       {children}

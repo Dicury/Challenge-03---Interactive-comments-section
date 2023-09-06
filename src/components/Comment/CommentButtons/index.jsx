@@ -10,9 +10,17 @@ import {
   Delete,
 } from "@/components/Comment/CommentButtons/CommentButtons.style";
 import CommentModal from "../CommentModal";
+import useDadosContext from "@/hooks/useDadosContext";
 
-export default function CommentButtons({ currentUser, username, id, idPai }) {
+export default function CommentButtons({
+  currentUser,
+  username,
+  id,
+  idPai,
+  content,
+}) {
   const [openModal, setOpenModal] = useState(false);
+  const { setEditState } = useDadosContext();
 
   return (
     <>
@@ -25,7 +33,7 @@ export default function CommentButtons({ currentUser, username, id, idPai }) {
             </ContainerButton>
             <ContainerButton>
               <ReplyIcone src="images/icon-edit.svg" alt="" />
-              <Reply>Edit</Reply>
+              <Reply onClick={() => setEditState(true)}>Edit</Reply>
             </ContainerButton>
           </Container>
           <CommentModal

@@ -63,3 +63,27 @@ export const TagCurrentUser = styled.p`
   padding: 2px 10px;
   border-radius: 5px;
 `;
+
+export const UpdateButton = styled.button`
+  grid-column: 3/4;
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  width: 100px;
+  padding: 1rem 1.2rem;
+  justify-self: right;
+  border-radius: 10px;
+  background-color: ${(props) => props.theme.colors.primary.moderateBlue};
+  color: ${(props) => props.theme.colors.neutral.white};
+`;
+
+export const UpdateArea = styled.textarea`
+  grid-column: 2/4;
+  grid-row: 2/4;
+  resize: none;
+  padding: 1rem;
+  border-radius: 10px;
+  border: 1px solid ${(props) => props.theme.colors.primary.moderateBlue};
+  color: ${(props) => props.theme.colors.neutral.grayishBlue};
+  font-size: 1rem;
+`;

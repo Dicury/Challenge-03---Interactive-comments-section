@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Contador from "@/components/Comment/Contador/index";
 import Replies from "@/components/Comment/Replies/index";
 import CommentButtons from "@/components/Comment/CommentButtons/index";
@@ -13,6 +13,8 @@ import {
   CabecalhoNome,
   TextoComentario,
   TagCurrentUser,
+  UpdateButton,
+  UpdateArea,
 } from "@/components/Comment/Comment.style";
 import useDadosContext from "@/hooks/useDadosContext";
 
@@ -27,7 +29,13 @@ export default function Comment({
   replyingTo,
   idPai,
 }) {
-  const { currentUser } = useDadosContext();
+  const { currentUser, editState, setEditState } = useDadosContext();
+  const [updateText, setUpdateText] = useState(content);
+
+  const changeText = (e) => {
+    setUpdateText(e);
+    console.log(updateText);
+  };
   return (
     <>
       <Card>
@@ -38,6 +46,7 @@ export default function Comment({
           id={id}
           idPai={idPai}
           key={currentUser}
+          content={content}
         />
         <CabecalhoContainer>
           <CabecalhoImagem src={image} />
@@ -45,10 +54,23 @@ export default function Comment({
           {currentUser === username ? <TagCurrentUser>you</TagCurrentUser> : ""}
           <p>{createdAt}</p>
         </CabecalhoContainer>
-        <TextoComentario>
-          {replyingTo ? <ReplyingTo>@{replyingTo} </ReplyingTo> : ""}
-          {content}
-        </TextoComentario>
+        {editState && currentUser === username ? (
+          <>
+            <UpdateArea
+              type="textarea"
+              value={updateText}
+              onChange={(e) => changeText(e.target.value)}
+            />
+            <UpdateButton onClick={() => setEditState(false)}>
+              Update
+            </UpdateButton>
+          </>
+        ) : (
+          <TextoComentario>
+            {replyingTo ? <ReplyingTo>@{replyingTo} </ReplyingTo> : ""}
+            {updateText}
+          </TextoComentario>
+        )}
       </Card>
       <Replies
         replies={replies}

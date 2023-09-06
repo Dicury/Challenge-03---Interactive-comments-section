@@ -10,23 +10,21 @@ export default function Replies({ replies, currentUser, idPai }) {
     <>
       {replies.length > 0 && (
         <RepliesCard>
-          {replies
-            .sort((a, b) => (a.score < b.score ? 1 : -1))
-            .map((reply) => (
-              <Comment
-                key={reply.id}
-                content={reply.content}
-                username={reply.user.username}
-                image={reply.user.image.png}
-                score={reply.score}
-                replies={[]}
-                replyingTo={reply.replyingTo}
-                createdAt={reply.createdAt}
-                currentUser={currentUser}
-                id={reply.id}
-                idPai={idPai}
-              />
-            ))}
+          {replies.map((reply) => (
+            <Comment
+              key={reply.id}
+              content={reply.content}
+              username={reply.user.username}
+              image={reply.user.image.png}
+              score={reply.score}
+              replies={[]}
+              replyingTo={reply.replyingTo}
+              createdAt={reply.createdAt}
+              currentUser={currentUser}
+              id={reply.id}
+              idPai={idPai}
+            />
+          ))}
         </RepliesCard>
       )}
     </>
