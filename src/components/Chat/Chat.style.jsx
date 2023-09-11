@@ -1,6 +1,6 @@
 import { styled } from "styled-components";
 
-export const Card = styled.div`
+export const Card = styled.form`
   display: grid;
   grid-template-columns: repeat(2, 1auto);
   grid-template-rows: repeat(2, auto);

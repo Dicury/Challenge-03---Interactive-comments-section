@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import useDadosContext from "@/hooks/useDadosContext";
 import {
   Card,
   ChatInput,
@@ -9,11 +10,23 @@ import {
 } from "@/components/Chat/Chat.style";
 
 export default function Chat() {
+  const [newComment, setNewComment] = useState();
+
+  const { sendComment } = useDadosContext();
+
+  const handleSubmit = () => {
+    event.preventDefault();
+    sendComment(newComment);
+  };
+
   return (
-    <Card>
-      <ChatInput placeholder="Add a comment..."></ChatInput>
+    <Card id="chat" onSubmit={() => handleSubmit()}>
+      <ChatInput
+        placeholder="Add a comment..."
+        onChange={(e) => setNewComment(e.target.value)}
+      ></ChatInput>
       <ChatImagem src="images/avatars/image-juliusomo.png" />
-      <ChatButton>SEND</ChatButton>
+      <ChatButton form="chat">SEND</ChatButton>
     </Card>
   );
 }

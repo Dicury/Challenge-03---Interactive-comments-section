@@ -53,6 +53,27 @@ export const CurrentUserProvider = ({ children }) => {
   };
   //
 
+  // Função de adicionar comentários
+  const sendComment = (conteudo) => {
+    const newComment = {
+      id: comentarios.length + 1,
+      content: conteudo,
+      createdAt: "today",
+      score: 0,
+      user: {
+        image: {
+          png: Dados.currentUser.image.png,
+          webp: Dados.currentUser.image.webp,
+        },
+        username: currentUser,
+      },
+      replies: [],
+    };
+
+    setComentarios([...comentarios, newComment]);
+    console.log(comentarios);
+  };
+
   return (
     <DadosContext.Provider
       value={{
@@ -64,6 +85,7 @@ export const CurrentUserProvider = ({ children }) => {
         deletaReply,
         setEditState,
         editState,
+        sendComment,
       }}
     >
       {children}
