@@ -20,7 +20,12 @@ export default function CommentButtons({
   content,
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const { setEditState } = useDadosContext();
+  const { setEditState, setEditId } = useDadosContext();
+
+  const handleEditState = () => {
+    setEditState(true);
+    setEditId(id);
+  };
 
   return (
     <>
@@ -33,7 +38,7 @@ export default function CommentButtons({
             </ContainerButton>
             <ContainerButton>
               <ReplyIcone src="images/icon-edit.svg" alt="" />
-              <Reply onClick={() => setEditState(true)}>Edit</Reply>
+              <Reply onClick={handleEditState}>Edit</Reply>
             </ContainerButton>
           </Container>
           <CommentModal

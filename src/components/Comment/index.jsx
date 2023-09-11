@@ -29,12 +29,11 @@ export default function Comment({
   replyingTo,
   idPai,
 }) {
-  const { currentUser, editState, setEditState } = useDadosContext();
+  const { currentUser, editState, setEditState, editId } = useDadosContext();
   const [updateText, setUpdateText] = useState(content);
 
   const changeText = (e) => {
     setUpdateText(e);
-    console.log(updateText);
   };
   return (
     <>
@@ -54,7 +53,7 @@ export default function Comment({
           {currentUser === username ? <TagCurrentUser>you</TagCurrentUser> : ""}
           <p>{createdAt}</p>
         </CabecalhoContainer>
-        {editState && currentUser === username ? (
+        {editState && editId === id && currentUser === username ? (
           <>
             <UpdateArea
               type="textarea"

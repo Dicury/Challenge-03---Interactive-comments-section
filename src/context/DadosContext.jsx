@@ -12,6 +12,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(Dados.currentUser.username);
   const [comentarios, setComentarios] = useState(Dados.comments);
   const [editState, setEditState] = useState(false);
+  const [editId, setEditId] = useState();
 
   // Funções de atualizar o score
   const atualizaScoreComment = (idPassado, expressao) => {
@@ -73,6 +74,7 @@ export const CurrentUserProvider = ({ children }) => {
     setComentarios([...comentarios, newComment]);
     console.log(comentarios);
   };
+  //
 
   return (
     <DadosContext.Provider
@@ -85,6 +87,8 @@ export const CurrentUserProvider = ({ children }) => {
         deletaReply,
         setEditState,
         editState,
+        editId,
+        setEditId,
         sendComment,
       }}
     >
