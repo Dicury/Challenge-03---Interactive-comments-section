@@ -1,9 +1,10 @@
 "use client";
 
 import { React, createContext, useState } from "react";
-import Dados from "@/data/data.json";
+import Dados from "@/data/api";
 import transformScoreArray from "@/shared/transformScoreArray";
 import filterArray from "@/shared/filterArray";
+import { v4 as uuidv4 } from "uuid";
 
 export const DadosContext = createContext();
 DadosContext.displayName = "Dados";
@@ -12,7 +13,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(Dados.currentUser.username);
   const [comentarios, setComentarios] = useState(Dados.comments);
   const [editState, setEditState] = useState(false);
-  const [editId, setEditId] = useState();
+  const [handleReply, setHandleReply] = useState(false);
 
   // Funções de atualizar o score
   const atualizaScoreComment = (idPassado, expressao) => {
@@ -57,7 +58,7 @@ export const CurrentUserProvider = ({ children }) => {
   // Função de adicionar comentários
   const sendComment = (conteudo) => {
     const newComment = {
-      id: comentarios.length + 1,
+      id: uuidv4(),
       content: conteudo,
       createdAt: "today",
       score: 0,
@@ -70,8 +71,37 @@ export const CurrentUserProvider = ({ children }) => {
       },
       replies: [],
     };
-
     setComentarios([...comentarios, newComment]);
+  };
+
+  const filterReplies = (idPassado, novaReply, idPai) => {
+    const filteredComment = comentarios.map((comentario) => {
+      if (comentario.id === idPassado) {
+        return { ...comentario, replies: [...comentario.replies, novaReply] };
+      }
+      return comentario;
+    });
+    return filteredComment;
+  };
+
+  const sendReply = (conteudo, replyingTo, idPassado, idPai) => {
+    const newReply = {
+      id: uuidv4(),
+      content: conteudo,
+      createdAt: "today",
+      score: 0,
+      replyingTo: replyingTo,
+      user: {
+        image: {
+          png: Dados.currentUser.image.png,
+          webp: Dados.currentUser.image.webp,
+        },
+        username: currentUser,
+      },
+      replies: [],
+    };
+    const newReplyFiltered = filterReplies(idPassado, newReply);
+    setComentarios(newReplyFiltered);
     console.log(comentarios);
   };
   //
@@ -87,9 +117,10 @@ export const CurrentUserProvider = ({ children }) => {
         deletaReply,
         setEditState,
         editState,
-        editId,
-        setEditId,
         sendComment,
+        sendReply,
+        handleReply,
+        setHandleReply,
       }}
     >
       {children}

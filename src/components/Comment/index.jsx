@@ -29,7 +29,7 @@ export default function Comment({
   replyingTo,
   idPai,
 }) {
-  const { currentUser, editState, setEditState, editId } = useDadosContext();
+  const { currentUser, editState, setEditState } = useDadosContext();
   const [updateText, setUpdateText] = useState(content);
 
   const changeText = (e) => {
@@ -38,6 +38,7 @@ export default function Comment({
   return (
     <>
       <Card>
+        {/* Botões do comentário */}
         <Contador score={score} id={id} idPai={idPai} />
         <CommentButtons
           currentUser={currentUser}
@@ -47,13 +48,16 @@ export default function Comment({
           key={currentUser}
           content={content}
         />
+        {/* Cabeçalho do comentário */}
         <CabecalhoContainer>
           <CabecalhoImagem src={image} />
           <CabecalhoNome>{username}</CabecalhoNome>
           {currentUser === username ? <TagCurrentUser>you</TagCurrentUser> : ""}
           <p>{createdAt}</p>
         </CabecalhoContainer>
-        {editState && editId === id && currentUser === username ? (
+
+        {/* Lógica que cria/edita o texto do comentário */}
+        {editState === id && currentUser === username ? (
           <>
             <UpdateArea
               type="textarea"
@@ -71,6 +75,8 @@ export default function Comment({
           </TextoComentario>
         )}
       </Card>
+
+      {/* Lógica que renderiza os replies */}
       <Replies
         replies={replies}
         key={replies}

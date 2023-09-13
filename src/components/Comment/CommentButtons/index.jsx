@@ -1,16 +1,16 @@
 "use-client";
 
 import React, { useState } from "react";
+import CommentModal from "../CommentModal";
+import useDadosContext from "@/hooks/useDadosContext";
 
 import {
   Container,
   ContainerButton,
   ReplyIcone,
-  Reply,
+  Botao,
   Delete,
 } from "@/components/Comment/CommentButtons/CommentButtons.style";
-import CommentModal from "../CommentModal";
-import useDadosContext from "@/hooks/useDadosContext";
 
 export default function CommentButtons({
   currentUser,
@@ -20,11 +20,16 @@ export default function CommentButtons({
   content,
 }) {
   const [openModal, setOpenModal] = useState(false);
-  const { setEditState, setEditId } = useDadosContext();
+  const { setEditState, setHandleReply, setHandleReplyId, handleReply } =
+    useDadosContext();
 
   const handleEditState = () => {
-    setEditState(true);
-    setEditId(id);
+    setEditState(id);
+  };
+
+  const handleReplyState = () => {
+    setHandleReply({ username: username, id: id, idPai: idPai });
+    console.log(handleReply);
   };
 
   return (
@@ -38,7 +43,7 @@ export default function CommentButtons({
             </ContainerButton>
             <ContainerButton>
               <ReplyIcone src="images/icon-edit.svg" alt="" />
-              <Reply onClick={handleEditState}>Edit</Reply>
+              <Botao onClick={handleEditState}>Edit</Botao>
             </ContainerButton>
           </Container>
           <CommentModal
@@ -52,7 +57,7 @@ export default function CommentButtons({
       ) : (
         <ContainerButton>
           <ReplyIcone src="images/icon-reply.svg" alt="" />
-          <Reply>Reply</Reply>
+          <Botao onClick={handleReplyState}>Reply</Botao>
         </ContainerButton>
       )}
     </>

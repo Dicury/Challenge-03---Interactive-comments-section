@@ -34,7 +34,7 @@ export const ReplyIcone = styled.img`
   height: 0.8rem;
 `;
 
-export const Reply = styled.button`
+export const Botao = styled.button`
   border: none;
   background: none;
   color: ${(props) => props.theme.colors.primary.moderateBlue};
