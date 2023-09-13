@@ -29,7 +29,7 @@ export default function CommentButtons({
 
   const handleReplyState = () => {
     setHandleReply({ username: username, id: id, idPai: idPai });
-    console.log(handleReply);
+    console.log(idPai);
   };
 
   return (

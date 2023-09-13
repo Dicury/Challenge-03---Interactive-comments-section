@@ -73,10 +73,10 @@ export const CurrentUserProvider = ({ children }) => {
     };
     setComentarios([...comentarios, newComment]);
   };
-
+  // Função de adicionar replies
   const filterReplies = (idPassado, novaReply, idPai) => {
     const filteredComment = comentarios.map((comentario) => {
-      if (comentario.id === idPassado) {
+      if (comentario.id === idPassado || comentario.id === idPai) {
         return { ...comentario, replies: [...comentario.replies, novaReply] };
       }
       return comentario;
@@ -100,7 +100,7 @@ export const CurrentUserProvider = ({ children }) => {
       },
       replies: [],
     };
-    const newReplyFiltered = filterReplies(idPassado, newReply);
+    const newReplyFiltered = filterReplies(idPassado, newReply, idPai);
     setComentarios(newReplyFiltered);
     console.log(comentarios);
   };
