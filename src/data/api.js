@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 
-const Dados = {
+const DadosBrutos = {
   currentUser: {
     image: {
       png: "./images/avatars/image-juliusomo.png",
@@ -73,4 +73,4 @@ const Dados = {
   ],
 };
 
-export default Dados;
+export default DadosBrutos;

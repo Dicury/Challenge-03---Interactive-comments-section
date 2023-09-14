@@ -29,11 +29,17 @@ export default function Comment({
   replyingTo,
   idPai,
 }) {
-  const { currentUser, editState, setEditState } = useDadosContext();
+  const { currentUser, editState, setEditState, updateData, setComentarios } =
+    useDadosContext();
   const [updateText, setUpdateText] = useState(content);
 
   const changeText = (e) => {
     setUpdateText(e);
+  };
+
+  const handleUpdateData = () => {
+    setEditState(false);
+    updateData(id, updateText, idPai);
   };
   return (
     <>
@@ -41,7 +47,7 @@ export default function Comment({
         {/* Botões do comentário */}
         <Contador score={score} id={id} idPai={idPai} />
         <CommentButtons
-          currentUser={currentUser}
+          currentUser={currentUser.username}
           username={username}
           id={id}
           idPai={idPai}
@@ -57,14 +63,14 @@ export default function Comment({
         </CabecalhoContainer>
 
         {/* Lógica que cria/edita o texto do comentário */}
-        {editState === id && currentUser === username ? (
+        {editState === id && currentUser.username === username ? (
           <>
             <UpdateArea
               type="textarea"
               value={updateText}
               onChange={(e) => changeText(e.target.value)}
             />
-            <UpdateButton onClick={() => setEditState(false)}>
+            <UpdateButton onClick={() => handleUpdateData()}>
               Update
             </UpdateButton>
           </>

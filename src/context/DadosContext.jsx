@@ -1,17 +1,20 @@
 "use client";
 
 import { React, createContext, useState } from "react";
-import Dados from "@/data/api";
 import transformScoreArray from "@/shared/transformScoreArray";
 import filterArray from "@/shared/filterArray";
 import { v4 as uuidv4 } from "uuid";
+import useDados from "@/hooks/useDados";
 
 export const DadosContext = createContext();
 DadosContext.displayName = "Dados";
 
 export const CurrentUserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(Dados.currentUser.username);
-  const [comentarios, setComentarios] = useState(Dados.comments);
+  const dadosFiltrados = useDados();
+  const [currentUser, setCurrentUser] = useState(
+    dadosFiltrados.dataCurrentUser
+  );
+  const [comentarios, setComentarios] = useState(dadosFiltrados.dataComments);
   const [editState, setEditState] = useState(false);
   const [handleReply, setHandleReply] = useState(false);
 
@@ -19,6 +22,7 @@ export const CurrentUserProvider = ({ children }) => {
   const atualizaScoreComment = (idPassado, expressao) => {
     const newArray = transformScoreArray(expressao, comentarios, idPassado);
     setComentarios(newArray);
+    localStorage.setItem("comentarios", JSON.stringify(newArray));
   };
 
   const atualizaScoreReply = (idPassado, expressao, idPai) => {
@@ -34,6 +38,7 @@ export const CurrentUserProvider = ({ children }) => {
       return comentario;
     });
     setComentarios(newArray);
+    localStorage.setItem("comentarios", JSON.stringify(newArray));
   };
   //
 
@@ -41,6 +46,7 @@ export const CurrentUserProvider = ({ children }) => {
   const deletaComentario = (idPassado) => {
     const newArray = filterArray(comentarios, idPassado);
     setComentarios(newArray);
+    localStorage.setItem("comentarios", JSON.stringify(newArray));
   };
 
   const deletaReply = (idPassado, idPai) => {
@@ -52,6 +58,7 @@ export const CurrentUserProvider = ({ children }) => {
       return comentario;
     });
     setComentarios(newArray);
+    localStorage.setItem("comentarios", JSON.stringify(newArray));
   };
   //
 
@@ -64,16 +71,21 @@ export const CurrentUserProvider = ({ children }) => {
       score: 0,
       user: {
         image: {
-          png: Dados.currentUser.image.png,
-          webp: Dados.currentUser.image.webp,
+          png: currentUser.image.png,
+          webp: currentUser.image.webp,
         },
-        username: currentUser,
+        username: currentUser.username,
       },
       replies: [],
     };
     setComentarios([...comentarios, newComment]);
+    localStorage.setItem(
+      "comentarios",
+      JSON.stringify([...comentarios, newComment])
+    );
   };
-  // Função de adicionar replies
+
+  // Funções de adicionar replies
   const filterReplies = (idPassado, novaReply, idPai) => {
     const filteredComment = comentarios.map((comentario) => {
       if (comentario.id === idPassado || comentario.id === idPai) {
@@ -93,24 +105,45 @@ export const CurrentUserProvider = ({ children }) => {
       replyingTo: replyingTo,
       user: {
         image: {
-          png: Dados.currentUser.image.png,
-          webp: Dados.currentUser.image.webp,
+          png: currentUser.image.png,
+          webp: currentUser.image.webp,
         },
-        username: currentUser,
+        username: currentUser.username,
       },
       replies: [],
     };
     const newReplyFiltered = filterReplies(idPassado, newReply, idPai);
     setComentarios(newReplyFiltered);
-    console.log(comentarios);
+    localStorage.setItem("comentarios", JSON.stringify(newReplyFiltered));
   };
   //
+
+  // Função de atualizar os dados ao editar um comentário
+  const updateData = (idPassado, conteudo, idPai) => {
+    const newArray = comentarios.map((comentario) => {
+      if (comentario.id === idPassado) {
+        comentario.content = conteudo;
+      }
+      if (comentario.id === idPai) {
+        comentario.replies.map((reply) => {
+          if (reply.id === idPassado) {
+            reply.content = conteudo;
+          }
+        });
+      }
+
+      return comentario;
+    });
+    setComentarios(newArray);
+    localStorage.setItem("comentarios", JSON.stringify(newArray));
+  };
 
   return (
     <DadosContext.Provider
       value={{
         currentUser,
         comentarios,
+        setComentarios,
         atualizaScoreComment,
         atualizaScoreReply,
         deletaComentario,
@@ -121,6 +154,7 @@ export const CurrentUserProvider = ({ children }) => {
         sendReply,
         handleReply,
         setHandleReply,
+        updateData,
       }}
     >
       {children}
