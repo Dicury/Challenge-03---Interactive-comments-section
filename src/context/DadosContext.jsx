@@ -1,20 +1,28 @@
 "use client";
 
-import { React, createContext, useState } from "react";
+import { React, createContext, useEffect, useState } from "react";
 import transformScoreArray from "@/shared/transformScoreArray";
 import filterArray from "@/shared/filterArray";
 import { v4 as uuidv4 } from "uuid";
-import useDados from "@/hooks/useDados";
+import DadosBrutos from "@/data/api";
 
 export const DadosContext = createContext();
 DadosContext.displayName = "Dados";
 
 export const CurrentUserProvider = ({ children }) => {
-  const dadosFiltrados = useDados();
-  const [currentUser, setCurrentUser] = useState(
-    dadosFiltrados.dataCurrentUser
-  );
-  const [comentarios, setComentarios] = useState(dadosFiltrados.dataComments);
+  // Manipulação de Dados
+  const [currentUser, setCurrentUser] = useState(DadosBrutos.currentUser);
+  const [comentarios, setComentarios] = useState(DadosBrutos.comments);
+
+  useEffect(() => {
+    if (localStorage.getItem("comentarios")) {
+      setComentarios(JSON.parse(localStorage.getItem("comentarios")));
+    } else {
+      setComentarios(DadosBrutos.comments);
+    }
+  }, []);
+  //
+
   const [editState, setEditState] = useState(false);
   const [handleReply, setHandleReply] = useState(false);
 

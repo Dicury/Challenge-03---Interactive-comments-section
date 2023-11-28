@@ -28,7 +28,7 @@ export default function CommentModal({ isOpen, setModalOpen, id, idPai }) {
           <TituloModal>Delete Comment</TituloModal>
           <TextoModal>
             Are you sure you want to delete this comment? This will remove the
-            comment and can't be undone.
+            comment and cant be undone.
           </TextoModal>
           <CancelButton onClick={setModalOpen}>NO, CANCEL</CancelButton>
           <DeleteButton onClick={() => handleDelete()}>
